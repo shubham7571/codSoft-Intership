@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Simple Calculator</title>
+</head>
+
+<body>
+    <div class="calculator">
+        <div class="display" id="display">0</div>
+        <button onclick="clearDisplay()">C</button>
+        <button onclick="appendNumber('7')">7</button>
+        <button onclick="appendNumber('8')">8</button>
+        <button onclick="appendNumber('9')">9</button>
+        <button onclick="setOperator('/')">/</button>
+        <button onclick="appendNumber('4')">4</button>
+        <button onclick="appendNumber('5')">5</button>
+        <button onclick="appendNumber('6')">6</button>
+        <button onclick="setOperator('*')">*</button>
+        <button onclick="appendNumber('1')">1</button>
+        <button onclick="appendNumber('2')">2</button>
+        <button onclick="appendNumber('3')">3</button>
+        <button onclick="setOperator('-')">-</button>
+        <button onclick="appendNumber('0')">0</button>
+        <button onclick="calculate()">=</button>
+        <button onclick="setOperator('+')">+</button>
+    </div>
+    <script>
+        let currentInput = '';
+        let operator = '';
+        let result = 0;
+
+        function updateDisplay() {
+            document.getElementById('display').textContent = currentInput || '0';
+        }
+
+        function clearDisplay() {
+            currentInput = '';
+            operator = '';
+            result = 0;
+            updateDisplay();
+        }
+
+        function appendNumber(number) {
+            currentInput += number;
+            updateDisplay();
+        }
+
+        function setOperator(newOperator) {
+            if (currentInput !== '') {
+                operator = newOperator;
+                result = parseFloat(currentInput);
+                currentInput = '';
+                updateDisplay();
+            }
+        }
+
+        function calculate() {
+            if (currentInput !== '') {
+                const inputValue = parseFloat(currentInput);
+                switch (operator) {
+                    case '+':
+                        result += inputValue;
+                        break;
+                    case '-':
+                        result -= inputValue;
+                        break;
+                    case '*':
+                        result *= inputValue;
+                        break;
+                    case '/':
+                        result /= inputValue;
+                        break;
+                }
+                currentInput = result.toString();
+                operator = '';
+                updateDisplay();
+            }
+        }
+    </script>
+</body>
+</html>
